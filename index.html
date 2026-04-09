@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZABCORD: Líderes en Soluciones Textiles Sostenibles</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* --- VARIABLES Y RESET --- */
+        :root {
+            --color-azul: #1a3a5e;
+            --color-rojo: #e83a45;
+            --color-fondo: #fafafa;
+            --color-texto: #333;
+            --color-gris-claro: #f0f0f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--color-fondo);
+            display: flex;
+            color: var(--color-texto);
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            top: 0; left: 0;
+            background-color: var(--color-azul);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .logo {
+            text-align: center;
+            padding: 10px 0 20px 0;
+        }
+
+        .logo img {
+            max-width: 80%;
+            background-color: white;
+            border-radius: 5px;
+            padding: 5px;
+            transition: transform 0.3s;
+        }
+
+        .menu a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            transition: all 0.3s;
+            font-size: 0.95em;
+            cursor: pointer;
+        }
+
+        .menu a:hover, .menu a.active {
+            background-color: var(--color-rojo);
+            padding-left: 30px;
+        }
+
+        .menu-sub-item {
+            padding-left: 45px !important;
+            font-size: 0.85em;
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        /* --- CONTENIDO PRINCIPAL --- */
+        .content {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            padding: 40px;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- CARRUSEL --- */
+        .carousel-container {
+            width: 100%;
+            height: 450px;
+            overflow: hidden;
+            position: relative;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .carousel-track {
+            display: flex;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            position: relative;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slide-content {
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 500px;
+        }
+
+        /* --- GRIDS Y TARJETAS --- */
+        .products-grid, .detalle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .detalle-card {
+            background-color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid var(--color-gris-claro);
+            transition: transform 0.3s;
+        }
+
+        .detalle-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .detalle-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        /* ============================================
+           TIMELINE REDISEÑADA - COLORES SUAVES
+        ============================================ */
+
+        /* Paleta suave para la timeline */
+        :root {
+            --tl-bg-start:   #f0f4f8;
+            --tl-bg-end:     #e8edf5;
+            --tl-linea:      #b0c4de;
+            --tl-acento:     #4a7db5;
+            --tl-badge-bg:   #dce8f5;
+            --tl-badge-txt:  #2c5f8a;
+            --tl-card-bg:    #ffffff;
+            --tl-card-borde: #d4e3f0;
+            --tl-titulo:     #1a3a5e;
+            --tl-texto:      #5a6f84;
+            --tl-icon-bg:    #4a7db5;
+            --tl-sombra:     rgba(74,125,181,0.12);
+        }
+
+        .timeline-section-wrapper {
+            background: linear-gradient(160deg, var(--tl-bg-start) 0%, var(--tl-bg-end) 100%);
+            border-radius: 24px;
+            padding: 60px 40px 50px;
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #dce8f5;
+            box-shadow: 0 4px 24px rgba(74,125,181,0.08);
+        }
+
+        /* Círculos decorativos suaves */
+        .timeline-section-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -100px; left: -100px;
+            width: 350px; height: 350px;
+            background: radial-gradient(circle, rgba(74,125,181,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .timeline-section-wrapper::after {
+            content: '';
+            position: absolute;
+            bottom: -80px; right: -80px;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(74,125,181,0.07) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* Encabezado */
+        .timeline-heading {
+            text-align: center;
+            margin-bottom: 56px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .timeline-heading h2 {
+            color: var(--tl-titulo);
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        .timeline-heading .heading-sub {
+            color: var(--tl-texto);
+            font-size: 0.9rem;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            max-width: 480px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .timeline-heading .heading-line {
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--tl-acento), #89b4db);
+            border-radius: 2px;
+            margin: 14px auto 0;
+        }
+
+        /* Línea central */
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 10px 0;
+            z-index: 1;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0; bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom,
+                transparent 0%,
+                var(--tl-linea) 8%,
+                var(--tl-linea) 92%,
+                transparent 100%
+            );
+            transform: translateX(-50%);
+
+        }
+
+        /* Cada item */
+        .timeline-item {
+            padding: 0 64px 52px;
+            position: relative;
+            width: 50%;
+            opacity: 0;
+            transition: opacity 0.65s ease, transform 0.65s ease;
+        }
+
+        .timeline-item.visible { opacity: 1; transform: translateX(0) !important; }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+            transform: translateX(-28px);
+        }
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            text-align: left;
+            transform: translateX(28px);
+        }
+
+        /* Tarjeta */
+        .timeline-card {
+            background: var(--tl-card-bg);
+            border: 1px solid var(--tl-card-borde);
+            border-radius: 16px;
+            padding: 22px 26px;
+            position: relative;
+            box-shadow: 0 4px 18px var(--tl-sombra);
+            transition: box-shadow 0.3s, border-color 0.3s, transform 0.3s;
+        }
+
+        .timeline-card:hover {
+            border-color: var(--tl-acento);
+            box-shadow: 0 8px 28px rgba(74,125,181,0.2);
+            transform: translateY(-3px);
+        }
+
+        /* Flechita lado impar (apunta derecha → icono) */
+        .timeline-item:nth-child(odd) .timeline-card::after {
+            content: '';
+            position: absolute;
+            right: -9px;
+            top: 26px;
+            border: 9px solid transparent;
+            border-left-color: var(--tl-card-borde);
+        }
+        .timeline-item:nth-child(odd) .timeline-card::before {
+            content: '';
+            position: absolute;
+            right: -7px;
+            top: 27px;
+            border: 8px solid transparent;
+            border-left-color: var(--tl-card-bg);
+            z-index: 1;
+        }
+
+        /* Flechita lado par (apunta izquierda → icono) */
+        .timeline-item:nth-child(even) .timeline-card::after {
+            content: '';
+            position: absolute;
+            left: -9px;
+            top: 26px;
+            border: 9px solid transparent;
+            border-right-color: var(--tl-card-borde);
+        }
+        .timeline-item:nth-child(even) .timeline-card::before {
+            content: '';
+            position: absolute;
+            left: -7px;
+            top: 27px;
+            border: 8px solid transparent;
+            border-right-color: var(--tl-card-bg);
+            z-index: 1;
+        }
+
+        /* Badge de año */
+        .timeline-year {
+            display: inline-block;
+            background: var(--tl-badge-bg);
+            color: var(--tl-badge-txt);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            padding: 4px 13px;
+            border-radius: 20px;
+            margin-bottom: 9px;
+            text-transform: uppercase;
+            border: 1px solid #c2d9ee;
+        }
+
+        .timeline-card h3 {
+            color: var(--tl-titulo);
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            line-height: 1.35;
+        }
+
+        .timeline-card p {
+            color: var(--tl-texto);
+            font-size: 0.85rem;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        /* Icono en la línea central */
+        .timeline-icon {
+            position: absolute;
+            top: 20px;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .timeline-icon-inner {
+            width: 44px;
+            height: 44px;
+            background: var(--tl-icon-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.95rem;
+            border: 3px solid white;
+            box-shadow: 0 0 0 4px rgba(74,125,181,0.2), 0 4px 12px rgba(74,125,181,0.25);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .timeline-item:hover .timeline-icon-inner {
+            transform: scale(1.12);
+            box-shadow: 0 0 0 6px rgba(74,125,181,0.25), 0 4px 16px rgba(74,125,181,0.35);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-icon  { right: -22px; }
+        .timeline-item:nth-child(even) .timeline-icon { left: -22px; }
+
+        /* Cierre de la línea */
+        .timeline-end {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            padding-top: 6px;
+        }
+
+        .timeline-end-dot {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            border: 1px solid var(--tl-card-borde);
+            border-radius: 30px;
+            padding: 10px 24px;
+            color: var(--tl-badge-txt);
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            box-shadow: 0 3px 12px var(--tl-sombra);
+        }
+
+        .timeline-end-dot i {
+            color: var(--tl-acento);
+            font-size: 0.95rem;
+        }
+
+        /* Banner de bienvenida al final */
+        .welcome-banner {
+            background: linear-gradient(135deg, #eaf2fb 0%, #dce8f7 100%);
+            border: 1px solid #c8dcef;
+            border-left: 5px solid var(--tl-acento);
+            border-radius: 14px;
+            padding: 28px 32px;
+            margin-top: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .welcome-banner .wb-icon {
+            font-size: 1.8rem;
+            color: var(--tl-acento);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .welcome-banner h3 {
+            color: var(--tl-titulo);
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .welcome-banner p {
+            color: var(--tl-texto);
+            font-size: 0.87rem;
+            line-height: 1.75;
+        }
+
+        /* --- BOTONES --- */
+        .cta-button {
+            background-color: var(--color-rojo);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+            margin-top: 15px;
+        }
+
+        .cta-button:hover {
+            background-color: #c72f38;
+            transform: scale(1.05);
+        }
+
+        .footer {
+            background-color: var(--color-azul);
+            color: #ccc;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+            font-size: 0.8em;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="logo">
+            <a href="#" class="nav-link" data-target="inicio">
+                <img src="Img/LOGO/Logo Zabcord.png" alt="Logo Zabcord">
+            </a>
+        </div>
+        <nav class="menu">
+            <a href="#" class="nav-link active" data-target="inicio"><i class="fas fa-home"></i> Inicio</a>
+            <a href="#" class="nav-link" data-target="historia"><i class="fas fa-history"></i> Nuestra Historia</a>
+            <a href="#" class="nav-link" data-target="mision-vision"><i class="fas fa-bullseye"></i> Misión y Visión</a>
+            <a href="#" class="nav-link" data-target="productos"><i class="fas fa-box-open"></i> Productos</a>
+            <a href="#" class="nav-link menu-sub-item" data-target="detalles-cordon">→ Detalles Cordón</a>
+            <a href="#" class="nav-link menu-sub-item" data-target="detalles-hilo">→ Detalles Hilo</a>
+            <a href="#" class="nav-link menu-sub-item" data-target="detalles-elastico">→ Detalles Elástico</a>
+        </nav>
+    </aside>
+
+    <main class="content">
+
+        <section id="inicio" class="section active">
+            <div class="carousel-container">
+                <div class="carousel-track" id="track">
+                    <div class="carousel-slide">
+                        <img src="Img/Carrusel/PLANTA.jpg" alt="Planta Zabcord">
+                        <div class="slide-content"><h2>Producción de Vanguardia</h2><p>Instalaciones modernas para soluciones textiles de alta calidad.</p></div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="Img/Carrusel/LABORATORIO.jpg" alt="Laboratorio Zabcord">
+                        <div class="slide-content"><h2>Calidad Garantizada</h2><p>Procesos certificados bajo estándares internacionales OEKOTEX.</p></div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="Img/Carrusel/OPERARIO DE TEÑIDO.jpg" alt="Sostenibilidad Textil">
+                        <div class="slide-content"><h2>Compromiso Ecológico</h2><p>Liderando con certificaciones GRS y materiales reciclados.</p></div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="Img/Carrusel/producion.JPG" alt="Tecnología de Punta">
+                        <div class="slide-content"><h2>Innovación Constante</h2><p>Maquinaria avanzada para acabados y texturas superiores.</p></div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="Img/NOSOTROS/MISION.JPG" alt="Exportación desde Honduras">
+                        <div class="slide-content"><h2>Alcance Regional</h2><p>Suministramos soluciones textiles líderes desde Honduras para el mundo.</p></div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="Img/NOSOTROS/elastico operarios.jpg" alt="Equipo Zabcord">
+                        <div class="slide-content"><h2>Pasión por el Detalle</h2><p>Nuestro equipo experto asegura la excelencia en cada producto.</p></div>
+                    </div>
+                </div>
+            </div>
+
+            <h1>ZABCORD: Líderes Textiles en Honduras</h1>
+            <p>Desde 2007, transformando la industria con innovación y sostenibilidad.</p>
+
+            <div class="products-grid">
+                <div class="detalle-card">
+                    <i class="fas fa-rope fa-3x" style="color: var(--color-rojo)"></i>
+                    <h3>CORDONES</h3>
+                    <p>Resistencia para todo tipo de calzado.</p>
+                    <button class="cta-button nav-link" data-target="detalles-cordon">Explorar</button>
+                </div>
+                <div class="detalle-card">
+                    <i class="fas fa-spool fa-3x" style="color: var(--color-rojo)"></i>
+                    <h3>HILOS</h3>
+                    <p>Variedad de calibres y colores vivos.</p>
+                    <button class="cta-button nav-link" data-target="detalles-hilo">Explorar</button>
+                </div>
+                <div class="detalle-card">
+                    <h3>ELÁSTICOS</h3>
+                    <p>Memoria y elongación superior.</p>
+                    <button class="cta-button nav-link" data-target="detalles-elastico">Explorar</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ SECCIÓN HISTORIA CON NUEVA TIMELINE ============ -->
+        <section id="historia" class="section">
+
+            <div class="timeline-section-wrapper">
+                <div class="timeline-heading">
+                    <h2><i class="fas fa-history" style="margin-right:10px; color:#4a7db5;"></i>Nuestra Trayectoria</h2>
+                    <p class="heading-sub">Más de 17 años de crecimiento, innovación y compromiso con la excelencia textil en Honduras y el mundo.</p>
+                    <span class="heading-line"></span>
+                </div>
+
+                <div class="timeline">
+
+                    <!-- Item 1 -->
+                    <div class="timeline-item">
+                        <div class="timeline-icon">
+                            <div class="timeline-icon-inner"><i class="fas fa-seedling"></i></div>
+                        </div>
+                        <div class="timeline-card">
+                            <span class="timeline-year">2007 · Los Orígenes</span>
+                            <h3>Fundación en Parque Inhdelva</h3>
+                            <p>Zabcord inició operaciones en Honduras dentro del Parque Inhdelva, comenzando con <strong>4 empleados y 1 máquina</strong>, produciendo cordones para manufactura en un área pequeña pero llena de visión y determinación.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="timeline-item">
+                        <div class="timeline-icon">
+                            <div class="timeline-icon-inner"><i class="fas fa-hourglass-half"></i></div>
+                        </div>
+                        <div class="timeline-card">
+                            <span class="timeline-year">2007 – 2011 · Consolidación</span>
+                            <h3>Cuatro Años de Constancia</h3>
+                            <p>Durante sus primeros cuatro años, Zabcord se mantuvo enfocada, perfeccionando sus procesos de producción de cordones y construyendo relaciones sólidas con sus clientes en la industria textil.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="timeline-item">
+                        <div class="timeline-icon">
+                            <div class="timeline-icon-inner"><i class="fas fa-expand-arrows-alt"></i></div>
+                        </div>
+                        <div class="timeline-card">
+                            <span class="timeline-year">2011 · Gran Expansión</span>
+                            <h3>Planta Propia y Nueva Línea de Hilos</h3>
+                            <p>Un hito clave: Zabcord obtuvo su <strong>planta propia</strong> y amplió su portafolio con la <strong>fabricación de hilo</strong>, respondiendo eficientemente a las crecientes necesidades de sus clientes con maquinaria de la mejor tecnología.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="timeline-item">
+                        <div class="timeline-icon">
+                            <div class="timeline-icon-inner"><i class="fas fa-cogs"></i></div>
+                        </div>
+                        <div class="timeline-card">
+                            <span class="timeline-year">Crecimiento Continuo</span>
+                            <h3>Inversión en Tecnología de Última Generación</h3>
+                            <p>Se realizaron <strong>grandes inversiones en maquinaria avanzada</strong>, permitiendo ampliar el catálogo de productos con <em>twill tape</em> y <em>skate lace</em>. Los procesos automatizados agilizan los plazos de entrega y garantizan estándares de alta calidad.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 5 -->
+                    <div class="timeline-item">
+                        <div class="timeline-icon">
+                            <div class="timeline-icon-inner"><i class="fas fa-leaf"></i></div>
+                        </div>
+                        <div class="timeline-card">
+                            <span class="timeline-year">Certificaciones</span>
+                            <h3>Compromiso con la Sostenibilidad</h3>
+                            <p>Zabcord obtuvo las certificaciones <strong>OEKOTEX</strong> y <strong>GRS (Global Recycled Standard)</strong>, avales internacionales que reflejan su firme compromiso con el medio ambiente, la calidad y la producción sostenible.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 6 -->
+                    <div class="timeline-item">
+                        <div class="timeline-icon">
+                            <div class="timeline-icon-inner"><i class="fas fa-trophy"></i></div>
+                        </div>
+                        <div class="timeline-card">
+                            <span class="timeline-year">Hoy · Liderazgo Regional</span>
+                            <h3>Empresa Textil Líder en Honduras</h3>
+                            <p>Hoy Zabcord se posiciona como una de las <strong>empresas textiles más importantes</strong> de la región en producción de cordón, elástico e hilo, exportando soluciones de calidad al mercado global con orgullo hondureño.</p>
+                        </div>
+                    </div>
+
+                </div><!-- /.timeline -->
+
+                <div class="timeline-end">
+                    <div class="timeline-end-dot">
+                        <i class="fas fa-star"></i>
+                        Escribiendo el futuro textil juntos
+                    </div>
+                </div>
+
+                <!-- Banner de bienvenida -->
+                <div class="welcome-banner">
+                    <i class="fas fa-hands-holding-heart wb-icon"></i>
+                    <h3>Bienvenidos a la Familia Zabcord</h3>
+                    <p>Zabcord confía y cree firmemente que la mejor ganancia como compañía son sus empleados. Usted forma parte ahora de una de las mejores empresas en la fabricación de cordón, elástico e hilo de Honduras. Nos sentimos muy contentos de contar con usted como un miembro de mucho valor para nuestro equipo. <strong>¡Bienvenido a la familia Zabcord S.A.!</strong></p>
+                </div>
+
+            </div><!-- /.timeline-section-wrapper -->
+        </section>
+
+        <section id="mision-vision" class="section">
+            <div class="detalle-grid">
+                <div class="detalle-card">
+                    <i class="fas fa-rocket fa-4x" style="color: var(--color-azul)"></i>
+                    <h2>Misión</h2>
+                    <p>Superar expectativas con soluciones textiles de alta calidad e innovación tecnológica constante.</p>
+                </div>
+                <div class="detalle-card">
+                    <i class="fas fa-eye fa-4x" style="color: var(--color-azul)"></i>
+                    <h2>Visión</h2>
+                    <p>Ser la empresa textil líder regional, reconocida por sostenibilidad y valor comercial.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="productos" class="section">
+            <h2>Nuestros Productos Principales</h2>
+            <div class="products-grid">
+                <div class="detalle-card">
+                    <img src="Img/Productos/CORDONES.jpg" alt="Línea Cordón">
+                    <h3>CORDONES</h3>
+                    <button class="cta-button nav-link" data-target="detalles-cordon">Ver Detalles</button>
+                </div>
+                <div class="detalle-card">
+                    <img src="Img/Productos/HILOS.jpg" alt="Línea Hilo">
+                    <h3>HILOS</h3>
+                    <button class="cta-button nav-link" data-target="detalles-hilo">Ver Detalles</button>
+                </div>
+                <div class="detalle-card">
+                    <img src="Img/Productos/ELATICOS.PNG" alt="Línea Elástico">
+                    <h3>ELÁSTICOS</h3>
+                    <button class="cta-button nav-link" data-target="detalles-elastico">Ver Detalles</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="detalles-cordon" class="section">
+            <h2>Detalles: Línea de Cordón</h2>
+            <div class="detalle-grid">
+                <div class="detalle-card">
+                    <img src="Img/Productos/CORDONES.jpg" alt="Cordón Premium">
+                    <h4>Cordón Premium</h4>
+                    <p>Poliéster de alta resistencia para calzado deportivo e industrial.</p>
+                </div>
+                <div class="detalle-card">
+                    <img src="Img/Productos/RECYCLER.jpg" alt="Cordón GRS">
+                    <h4>Cordón Reciclado (GRS)</h4>
+                    <p>Sostenibilidad certificada con materiales reciclados post-consumo.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="detalles-hilo" class="section">
+            <h2>Detalles: Línea de Hilo</h2>
+            <div class="detalle-grid">
+                <div class="detalle-card">
+                    <img src="Img/Productos/HILOS.jpg" alt="Hilo Industrial">
+                    <h4>Hilo de Alta Tenacidad</h4>
+                    <p>Especial para costuras que requieren máxima durabilidad.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="detalles-elastico" class="section">
+            <h2>Detalles: Línea de Elástico</h2>
+            <div class="detalle-grid">
+                <div class="detalle-card">
+                    <img src="Img/Productos/ELATICOS.PNG" alt="Elástico Tejido">
+                    <h4>Elástico de Memoria</h4>
+                    <p>Excelente recuperación para prendas deportivas y ropa íntima.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>&copy; 2026 ZABCORD S.A. de C.V. - Choloma, Cortés, Honduras. Todos los derechos reservados.</p>
+        </footer>
+
+    </main>
+
+    <script>
+        // LÓGICA DE NAVEGACIÓN
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('.section');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('data-target');
+                sections.forEach(s => s.classList.remove('active'));
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    // Trigger timeline animations when historia is shown
+                    if (targetId === 'historia') {
+                        setTimeout(animateTimeline, 100);
+                    }
+                }
+                navLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // ANIMACIÓN DE LA LÍNEA DE TIEMPO
+        function animateTimeline() {
+            const items = document.querySelectorAll('.timeline-item');
+            items.forEach((item, index) => {
+                setTimeout(() => {
+                    item.classList.add('visible');
+                }, index * 250);
+            });
+        }
+
+        // CARRUSEL AUTOMÁTICO
+        let currentSlide = 0;
+        const track = document.getElementById('track');
+
+        function moveCarousel() {
+            const slides = document.querySelectorAll('.carousel-slide');
+            currentSlide = (currentSlide + 1) % slides.length;
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        setInterval(moveCarousel, 4000);
+    </script>
+
+</body>
+</html>
